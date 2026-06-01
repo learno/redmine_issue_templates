@@ -55,3 +55,36 @@ zh:
   enabled_template_cannot_destroy: "已启用的模板不能删除。检查您正在使用的模板是否在其他项目中存在，并在删除之前将其禁用。"
   orphaned_templates: "基于跟踪的个性化模板"
   orphaned_template: "基于跟踪的个性化模板"
+  label_template_applied: "已应用ISSUE模板。您可以点击「回退」链接进行还原。"
+  label_hide_confirm_dialog_in_the_future: "以后不再提示，直接覆盖。"
+  label_template_for_note: "批注模板"
+  label_use_template_when_edit: "编辑ISSUE时使用模板"
+  note_template: "批注模板"
+  no_note_templates_for_this_project: "当前项目中未定义批注模板。"
+  label_memo_help_message: "请填写一段说明，解释应用此模板的场景。"
+  note_template_name: "批注模板名称"
+  note_description: "批注内容"
+  field_template_visibility: 模板可见性
+  note_templates:
+    visibility:
+      mine: 仅自己可见
+      roles: 仅以下角色可见
+      open: 所有用户可见
+  please_select_at_least_one_role: "请至少选择一个角色。"
+  issue_templates_settings: ISSUE模板设置
+  issue_templates_optional_settings: 模板可选设置
+  issue_template_related_link: 相关链接
+  issue_template_link_title: 相关链接标题
+  label_related_link_help_message: "如果有使用该ISSUE模板的示例页面或样例问题，请填写其链接，以便操作人员将其作为模板的用法或示例进行参考。"
+  label_link_title_help_message: "您可以自定义相关链接的标题。（默认：相关链接）"
+  enter_value: 请输入一个值。
+  label_select_field: 选择字段
+  label_builtin_fields_help_message: 以JSON格式输入内置字段或自定义字段的默认值。请选择字段并设置值，然后点击“应用”即可生成JSON格式数据。
+  label_builtin_fields_json: 字段的JSON
+  label_enable_builtin_fields: 启用内置字段支持
+  help_enable_builtin_fields: 启用此标志后，将显示一个表单，用于为内置字段或自定义字段设置模板。请以JSON格式注册相关设置。
+  warning_enable_builtin_fields: 请谨慎启用此标志。该功能目前为实验性功能，尚未提供足够的UI和功能以支持所有字段类型，在某些浏览器中可能无法正常工作。在生产环境中应用时请务必小心。
+  label_field_information: 字段信息
+  unavailable_fields_for_this_tracker: 该跟踪类型不可用的字段
+  global_note_templates: 全局批注模板
+  link_to_index_edit_note_template: 批注模板列表 / 编辑模板
