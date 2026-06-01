@@ -34,6 +34,17 @@
                       label: l(:issue_description), class: 'wiki-edit', style: 'overflow: auto;' %>
     </p>
 
+    <p>
+      <%= f.select :watcher_user_ids, watcher_candidate_options(issue_template, project),
+                   { label: l(:field_watcher) }, multiple: true, size: 6 %>
+      <a class='icon icon-help template-help' title='<%= l(:help_for_this_field) %>'
+         data-tooltip-area='watcher_help_area'
+         data-tooltip-content='watcher_help_content'>
+        <%= l(:help_for_this_field) %>
+        <span class='tooltip-area' id='watcher_help_area'></span>
+      </a>
+    </p>
+
     <!-- for Builtin Fields -->
     <!-- buildin field Generator -->
     <% if builtin_fields_enable %>
@@ -122,6 +133,9 @@
 </div>
 <div id='enabledsharing_help_content' class='wiki' style='display: none;'>
   <%= l(:label_enabledshaing_help_message) %>
+</div>
+<div id='watcher_help_content' class='wiki' style='display: none;'>
+  <%= l(:label_watcher_help_message, default: 'When this template is applied, the selected members are automatically added as watchers of the new issue.') %>
 </div>
 <!-- tooltip content -->
 <% if builtin_fields_enable %>

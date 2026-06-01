@@ -86,7 +86,7 @@ class IssueTemplatesController < ApplicationController
                      else
                        IssueTemplate.find(issue_template_id)
                      end
-    rendered_json = builtin_fields_enabled? ? issue_template.template_json : issue_template.template_json(except: 'builtin_fields_json')
+    rendered_json = issue_template.template_json(builtin_fields: builtin_fields_enabled?)
 
     render plain: rendered_json
   end
@@ -216,7 +216,8 @@ class IssueTemplatesController < ApplicationController
   def template_params
     params.require(:issue_template).permit(:tracker_id, :title, :note, :issue_title, :description, :is_default,
                                            :enabled, :author_id, :position, :enabled_sharing,
-                                           :related_link, :link_title, :builtin_fields)
+                                           :related_link, :link_title, :builtin_fields,
+                                           watcher_user_ids: [])
   end
 
   def templates_exist?

@@ -132,7 +132,7 @@ class GlobalIssueTemplatesController < ApplicationController
     params.require(:global_issue_template)
           .permit(:title, :tracker_id, :issue_title, :description, :note, :is_default, :enabled,
                   :author_id, :position, :related_link, :link_title, :builtin_fields,
-                  project_ids: [])
+                  project_ids: [], watcher_user_ids: [])
   end
 
   def render_form_params

@@ -17,6 +17,29 @@ module IssueTemplatesHelper
     trackers.collect { |obj| [obj.name, obj.id] }
   end
 
+  # Candidate watchers for the template form.
+  # Project templates: members (users/groups) of the project.
+  # Global templates (project is nil): all active users.
+  # Mirrors the principal query used in IssueTemplatesCommon#core_fields_map_by_tracker_id.
+  def watcher_candidates(project)
+    principals =
+      if project
+        if Watcher.reflections['user'].class_name == 'Principal'
+          project.principals.where(type: %w[User Group])
+        else # Redmine 4.1.x or earlier
+          project.users
+        end
+      else
+        Principal.where(type: 'User')
+      end
+    principals.active.visible.sort
+  end
+
+  def watcher_candidate_options(template, project)
+    selected = template.watcher_user_ids.to_a.map(&:to_i)
+    options_for_select(watcher_candidates(project).map { |u| [u.name, u.id] }, selected)
+  end
+
   def options_for_template_pulldown(options)
     options.map do |option|
       text = option.try(:name).to_s

@@ -22,7 +22,8 @@ class IssueTemplate < (defined?(ApplicationRecord) == 'constant' ? ApplicationRe
                   'position',
                   'related_link',
                   'link_title',
-                  'builtin_fields_json'
+                  'builtin_fields_json',
+                  'watcher_user_ids'
 
   scope :enabled_sharing, -> { where(enabled_sharing: true) }
   scope :search_by_project, lambda { |prolect_id|

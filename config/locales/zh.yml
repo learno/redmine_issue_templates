@@ -18,6 +18,7 @@ zh:
   label_applied_for_issue: "应用于该ISSUE的字段："
   help_for_issue_title: "若在ISSUE模板中已定义了主题，则在使用该ISSUE模板时，将自动替换为对应的主题信息。"
   help_for_this_field: "当前字段帮助信息"
+  label_watcher_help_message: "套用此模板时，将自动把选中的成员加为新建工单的关注者。"
   permission_manage_issue_templates: "管理ISSUE模板"
   permission_edit_issue_templates: "编辑ISSUE模板"
   permission_show_issue_templates: "显示ISSUE模板"

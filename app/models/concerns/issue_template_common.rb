@@ -48,9 +48,17 @@ module IssueTemplateCommon
     # https://edgeguides.rubyonrails.org/7_2_release_notes.html#active-record-removals
     if Rails.gem_version >= Gem::Version.new('7.2')
       serialize :builtin_fields_json, type: Hash, coder: YAML
+      serialize :watcher_user_ids, type: Array, coder: YAML
     else
       serialize :builtin_fields_json, Hash
+      serialize :watcher_user_ids, Array
     end
+  end
+
+  # Normalize multi-select form input: drop blanks (the hidden field Rails adds
+  # for `select multiple`), cast to integer and de-duplicate.
+  def watcher_user_ids=(value)
+    super(Array(value).flatten.reject(&:blank?).map(&:to_i).uniq)
   end
 
   #
@@ -76,22 +84,29 @@ module IssueTemplateCommon
     end
   end
 
-  def template_json(except: nil)
+  def template_json(builtin_fields: true)
     template = {}
-    template[self.class::Config::JSON_OBJECT_NAME] = generate_json
-    return template.to_json(root: true) if except.blank?
-
-    template.to_json(root: true, except: [except])
+    template[self.class::Config::JSON_OBJECT_NAME] = generate_json(include_builtin_fields: builtin_fields)
+    template.to_json(root: true)
   end
 
   def builtin_fields
     builtin_fields_json.to_json
   end
 
-  def generate_json
+  # Watchers are stored in their own column but delivered to the front-end
+  # through the existing `builtin_fields_json.issue_watcher_user_ids` channel,
+  # so they are applied regardless of the experimental builtin-fields flag.
+  def generate_json(include_builtin_fields: true)
     result = attributes
     result[:link_title] = link_title.presence || I18n.t(:issue_template_related_link, default: 'Related Link')
     result[:checklist] = checklist
+
+    builtin = include_builtin_fields ? (builtin_fields_json || {}).dup : {}
+    ids = watcher_user_ids.to_a.reject(&:blank?)
+    builtin['issue_watcher_user_ids'] = ids if ids.present?
+    result['builtin_fields_json'] = builtin
+
     result.except('checklist_json')
   end
 

@@ -21,7 +21,8 @@ class GlobalIssueTemplate < (defined?(ApplicationRecord) == 'constant' ? Applica
                   'author_id',
                   'related_link',
                   'link_title',
-                  'builtin_fields_json'
+                  'builtin_fields_json',
+                  'watcher_user_ids'
 
   # for intermediate table assosciations
   scope :search_by_project, lambda { |project_id|
